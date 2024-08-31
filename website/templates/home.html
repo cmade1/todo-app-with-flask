@@ -1,0 +1,27 @@
+{% extends "base.html"%} {% block title %}Home{% endblock %}
+
+{% block content %}
+<div>
+<h1 allign="center" class="text-white">Todos</h1>
+<h5 allign="center" class="text-white">Click on todos for edit</h5>
+<ul class="list-group">
+    {% for note in user.notes %}
+    <li class="list-group-item bg-transparent" class="text-white">
+        <form action="{{ url_for('views.edit' , id=note.id) }}" method="POST" style="display: flex; gap: 10px;">
+            <input name="detail" value="{{ note.data }}" class="bg-transparent"   style="display: flex; flex-grow: 1; border: 0px; resize: none; color:white">
+            <button  type="submit" class="btn-warning" >  💾</button>
+            <button type="button" class="btn btn-danger" style="float: right;"   onClick="deleteNote({{ note.id }})">
+                <span aria-hidden="True">&times;</span>
+            </button>
+        </form>
+    {% endfor %}
+</ul>
+</div>
+<form method="POST" action="/" style="display: flex; flex-wrap: wrap; gap:10px">
+    <textarea name='note' id='note' class="form-control bg-light" style="margin-top: 15px;"></textarea>
+    <div allign="center" style="padding-bottom: 25px;" >
+        <button class="btn btn-primary" type="submit">Add Todo</button>
+    </div>
+</form> 
+
+{% endblock %}
